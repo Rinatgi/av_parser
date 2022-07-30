@@ -1,0 +1,34 @@
+CREATE TABLE main_catalog
+(
+	catalog_id serial PRIMARY KEY,
+	name_catalog varchar(128) NOT NULL,
+);
+
+CREATE TABLE directories
+(
+	directory_id serial PRIMARY KEY,
+	name_directory varchar(128) NOT NULL,
+	link_directory text NOT NULL,
+	fk_catalog_id integer REFERENCES main_catalog(catalog_id) NOT NULL
+);
+
+CREATE TABLE products
+(
+	product_id serial NOT NULL,
+	name_product text NOT NULL,
+	link_product text NOT NULL,
+	image_path text,
+	id_site text NOT NULL,
+	fk_directory_id integer REFERENCES directories(directory_id) NOT NULL
+);
+
+CREATE TABLE price_products
+(
+	price_id serial NOT NULL,
+	price integer,
+	currency varchar(10),
+	date_price timestamp NOT NULL,
+	fk_product_id integer REFERENCES products(product_id) NOT NULL
+
+)
+
